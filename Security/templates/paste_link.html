@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paste Link - Click Fraud Checker</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>.sidebar{min-height:100vh}.nav-pills .nav-link.active{background:#0d6efd}</style>
+</head>
+<body class="bg-light"><div class="container-fluid"><div class="row">
+<aside class="col-12 col-md-3 col-lg-2 bg-white border-end sidebar p-3"><h5 class="fw-bold mb-3">Adclick Security</h5><nav class="nav nav-pills flex-column gap-1"><a class="nav-link" href="{% url 'home' %}">Home</a><a class="nav-link" href="{% url 'realtime_click' %}">Real Time</a><a class="nav-link active" href="{% url 'predict_link' %}">Predict</a><a class="nav-link" href="{% url 'paste_ip' %}">IP Risk</a><a class="nav-link" href="{% url 'complaint_register' %}">Complaint Register</a><a class="nav-link" href="{% url 'complaint_list' %}">View Complaints</a></nav>
+<div class="mt-4 pt-3 border-top sidebar-user">
+  <div class="d-flex align-items-center gap-2 mb-2">
+    <span style="font-size: 1.25rem;">&#128100;</span>
+    <span class="small fw-semibold">{{ request.user.username|default:"Guest" }}</span>
+  </div>
+  <a class="btn btn-outline-danger btn-sm w-100" href="{% url 'logout' %}">Logout</a>
+</div>
+</aside>
+<main class="col-12 col-md-9 col-lg-10 p-4"><h2 class="text-primary mb-3">Paste ad URL to check</h2><div class="card shadow-sm"><div class="card-body"><form method="post" action="{% url 'predict_link' %}">{% csrf_token %}
+<div class="mb-3"><label class="form-label">Ad URL</label><input name="url" class="form-control" required></div>
+<div class="mb-3"><label class="form-label">IP Address (optional)</label><input name="ip_address" class="form-control"></div>
+<div class="mb-3"><label class="form-label">Referrer (optional)</label><input name="referrer" class="form-control"></div>
+<div class="mb-3"><label class="form-label">User Agent (optional)</label><input name="user_agent" class="form-control"></div>
+<div class="row g-3"><div class="col-md-6"><input name="click_interval" class="form-control" placeholder="click_interval (secs)"></div><div class="col-md-6"><input name="click_count" class="form-control" placeholder="click_count"></div></div>
+<button class="btn btn-primary mt-3" type="submit">Check Link</button></form></div></div></main>
+</div></div>
+</body>
+</html>
+
+
